@@ -17,10 +17,12 @@ void paralelismo(double* v, int start, int end){
 
 int main(){
     double* vetor = (double*)malloc(VECTOR_SIZE * sizeof(double));
-    int vector_piece = VECTOR_SIZE / NUM_PROCESSES;
+    double vector_piece = VECTOR_SIZE / NUM_PROCESSES;
     for(int y = 0; y < VECTOR_SIZE; y++){
         vetor[y] = (double)y;
     }
+
+    clock_t gettime(CLOCK_MONOTONIC , &start);
     for(int x = 0; x < NUM_PROCESSES - 1; x++){
         pid_t pid = fork();
 
@@ -30,15 +32,16 @@ int main(){
         } else if(pid == 0){
             int comeco_ind = x * vector_piece;
             int end_ind = (x + 1) * vector_piece;
+            paralelismo(vector_piece, comeco_ind, end_ind);
         } else {
-            
+            printf("\n pai rodando");
+            for(int i = 0; i < NUM_PROCESSES; i++){
+                wait(NULL);
+            }
         }
     }
 
     struct timespec start, end;
-    clock_gettime(CLOCK_MONOTONIC, &start);
-
-    paralelismo(vetor, 0, VECTOR_SIZE);
 
     clock_gettime(CLOCK_MONOTONIC, &end);
 
