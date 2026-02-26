@@ -27,19 +27,18 @@ int main(){
         if(pid < 0){
             fprintf(stderr, "Fork falhou\n");
             return 1;
-        }
-        for(int k = 0; k < VECTOR_SIZE; k++){
+        } else if(pid == 0){
+            int comeco_ind = x * vector_piece;
+            int end_ind = (x + 1) * vector_piece;
+        } else {
             
-        }
-        if(pid == 0){
-
         }
     }
 
     struct timespec start, end;
     clock_gettime(CLOCK_MONOTONIC, &start);
 
-    sequencial(vetor, 0, TAM_VECTOR);
+    paralelismo(vetor, 0, VECTOR_SIZE);
 
     clock_gettime(CLOCK_MONOTONIC, &end);
 
