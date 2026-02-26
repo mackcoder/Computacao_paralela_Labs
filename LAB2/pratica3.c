@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
-#include <linux/time.h>
 
 #define TAM_VECTOR 200000000
 
@@ -28,6 +27,6 @@ int main(){
     double tempo_exec = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
 
     printf("Tempo de Execução do Sequencial foi de: %f segundos.", tempo_exec);
-
+    free(vetor);
     return 0;
 }
