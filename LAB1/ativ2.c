@@ -3,7 +3,7 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 
-#define NUM_SONS 4
+#define NUM_SONS 6
 int main(){
     pid_t pid;
 
@@ -18,7 +18,7 @@ int main(){
 
         } else if(pid == 0){
             // Son 1
-            printf("Filho criado: PID -> %d. Meu pai = T%d\n", getpid(), getppid());
+            printf("Filho criado: PID -> %d. Meu pai = %d\n", getpid(), getppid());
             exit(0);
 
         }
