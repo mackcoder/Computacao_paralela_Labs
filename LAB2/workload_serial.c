@@ -9,7 +9,7 @@
 #define VECTOR_SIZE 200000000
 
 void paralelismo(double* v, int start, int end){
-    for(int t = 0; t < VECTOR_SIZE; t++){
+    for(int t = start; t < end; t++){
         v[t] = sin(v[t]) * cos(v[t]) + sqrt(v[t]);
     }
 }
@@ -17,7 +17,7 @@ void paralelismo(double* v, int start, int end){
 int main(){
     double* vetor = (double*)malloc(VECTOR_SIZE * sizeof(double));
     double vector_piece = VECTOR_SIZE / NUM_PROCESSES;
-    for(int y = 0; y < vector_piece; y++){
+    for(int y = 0; y < VECTOR_SIZE; y++){
         vetor[y] = (double)y;
     }
 
