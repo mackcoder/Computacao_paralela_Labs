@@ -1,4 +1,4 @@
-#include<stdio.h>
+#include<stdio.h>   // gcc-o race_condition race_condition.c-Wall-pthread
 #include<stdlib.h>
 #include<pthread.h>
 #include<unistd.h>
@@ -27,10 +27,10 @@ void* thread_func(void* arg){
     long id_thread = (long)arg;
     printf("\nThread %ld iniciando o trabalho\n", id_thread);
 
-    long comeco = id_thread * THREADS;
+    long comeco = id_thread * pedaco;
     long end = (id_thread == THREADS - 1) ? TAM : (id_thread + 1) * pedaco;
 
-    for(long n = comeco; n <= end; n++){
+    for(long n = comeco; n < end; n++){
         local_soma += vector[n];
     }
     global_soma += local_soma;
