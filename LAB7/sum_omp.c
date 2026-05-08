@@ -32,7 +32,7 @@ int main(){
         soma_total_par += vetorC[b];
     }
     clock_gettime(CLOCK_MONOTONIC, &end_par);
-    // ----------------------------------------------------------------//\
+    // ----------------------------------------------------------------//
     // Parte sequencial:
     clock_gettime(CLOCK_MONOTONIC, &start_seq);
     long soma_total_seq = 0.0;

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <omp.h>
 #include <time.h>
 
 #define SIZE 100
@@ -7,12 +8,14 @@ int matrizA[SIZE][SIZE];
 int matrizB[SIZE][SIZE];
 int matrizC[SIZE][SIZE];
 
-struct timespec start_seq, end_seq;
-double tempo_seq;
+struct timespec start_par, end_par;
+double tempo_par;
+
 
 int main(){
+
     // ----------------------------------------------------------------//
-    // Preenchendo sequencialmente
+    // Preenchendo paralelamente
     for(int x = 0; x < SIZE; x++){
         for(int y = 0; y < SIZE; y++){
             matrizA[x][y] = y * 2;
@@ -22,13 +25,14 @@ int main(){
 
     for(int x = 0; x < SIZE; x++){
         for(int y = 0; y < SIZE; y++){
-            matrizC[x][y] = 0;
+            matrizC[x][y] = 0; 
         }
     }
 
     // ----------------------------------------------------------------//
-    // Calculo Sequencial
-    clock_gettime(CLOCK_MONOTONIC, &start_seq);
+    // Cálculo Paralela 
+    clock_gettime(CLOCK_MONOTONIC, &start_par);
+    #pragma omp parallel for
     for(int i = 0; i < SIZE; i++){
         for(int k = 0; k < SIZE; k++){
             for(int j = 0; j < SIZE; j++){
@@ -36,12 +40,11 @@ int main(){
             }
         }
     }
-    clock_gettime(CLOCK_MONOTONIC, &end_seq);
+    clock_gettime(CLOCK_MONOTONIC, &end_par);
     // ----------------------------------------------------------------//
     // Main
-    tempo_seq = (end_seq.tv_sec - start_seq.tv_sec) + (end_seq.tv_nsec - start_seq.tv_nsec) / 1e9;
-    printf("/nTempo total: %.6f segundos", tempo_seq);
-
+    tempo_par = (end_par.tv_sec - start_par.tv_sec) + (end_par.tv_nsec - start_par.tv_nsec) / 1e9;
+    printf("/n Tempo total: %.6f segundos", tempo_par);
     
     return 0;
 }
