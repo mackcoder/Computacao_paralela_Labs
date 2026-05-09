@@ -9,19 +9,22 @@ int main(){
     double matrizA[K][K], matrizB[K][K], matrizC[K][K];
     printf("--- MATRIZ MULTIPLICACAO ---\n");
 
-    printf("Modo Static:\n");
-    #pragma omp parallel for schedule(static, SIZE)
-
+    // Preenchendo as matrizes:
     for(int x = 0; x < SIZE; x++){
         for(int y = 0; y < SIZE; y++){
             matrizA[x][y] = 1.0;
             matrizB[x][y] = 2.0;
             matrizC[x][y] = 0.0;  
         }
-            for(int z = 0; z < SIZE; z++){
-                
-            }
     }
+    printf("Modo Static:\n");
+    #pragma omp parallel for schedule(static, SIZE)
+
+    
+    for(int z = 0; z < SIZE; z++){
+        
+    }
+    
 
     printf("--- Testando SCHEDULE (dynamic, %d) ---\n", SIZE);
 
